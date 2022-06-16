@@ -7,3 +7,5 @@ class Degerler(db.Model):
     isik = db.Column(db.String())
     havaNem = db.Column(db.String())
     havaSicaklik = db.Column(db.String())
+    tarih = db.Column(db.String())
+    

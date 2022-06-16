@@ -1,13 +1,20 @@
 from main import app,db
 from flask import redirect, render_template,request,url_for
 from main.model import Degerler
+from datetime import date, time 
 
 @app.route('/', methods=['GET','POST'])
 def index():
+    value = 0
     content = Degerler.query.all()
+    if  request.method == "POST":
+        value = request.form.get('daytime')
+        return redirect(url_for('index'))
+
     if request.method == "GET":
         text = request.args.get('toprakNem')
         print(text)
+        
         if text:
             toprakNem = request.args.get('toprakNem')
             yagmur = request.args.get('yagmur')
@@ -19,4 +26,5 @@ def index():
             db.session.add(content_to_create)
             db.session.commit()
             return redirect(url_for('index'))
-    return render_template('index.html', content=content)
+    return render_template('index.html', content=content, value=value)
+
